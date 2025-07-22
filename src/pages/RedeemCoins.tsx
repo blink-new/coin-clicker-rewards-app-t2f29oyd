@@ -38,6 +38,8 @@ export default function RedeemCoins({ coins, spendCoins, addRedemption }: Redeem
   const [emailError, setEmailError] = useState('')
 
   const handleRedeemClick = (tier: RedemptionTier) => {
+    console.log('Redeem button clicked for tier:', tier, 'Current coins:', coins)
+    
     if (coins < tier.coins) {
       toast.error(`You need ${(tier.coins - coins).toLocaleString()} more coins to redeem this tier!`)
       return
@@ -48,6 +50,13 @@ export default function RedeemCoins({ coins, spendCoins, addRedemption }: Redeem
     setShowEmailDialog(true)
     setEmail('')
     setEmailError('')
+    
+    console.log('Dialog state after setting:', { showEmailDialog: true, selectedTier: tier })
+    
+    // Force a re-render to ensure dialog appears
+    setTimeout(() => {
+      console.log('Dialog state check after timeout:', { showEmailDialog, selectedTier })
+    }, 100)
   }
 
   const validateEmail = (email: string) => {
@@ -242,7 +251,7 @@ export default function RedeemCoins({ coins, spendCoins, addRedemption }: Redeem
       </div>
 
       {/* Email Input Dialog */}
-      {console.log('Dialog state:', { showEmailDialog, selectedTier })}
+      {showEmailDialog && <div className="fixed top-4 right-4 bg-red-500 text-white p-2 rounded z-50">Dialog should be open!</div>}
       <Dialog open={showEmailDialog} onOpenChange={setShowEmailDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
