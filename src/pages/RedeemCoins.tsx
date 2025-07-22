@@ -43,6 +43,7 @@ export default function RedeemCoins({ coins, spendCoins, addRedemption }: Redeem
       return
     }
 
+    console.log('Opening email dialog for tier:', tier)
     setSelectedTier(tier)
     setShowEmailDialog(true)
     setEmail('')
@@ -241,6 +242,7 @@ export default function RedeemCoins({ coins, spendCoins, addRedemption }: Redeem
       </div>
 
       {/* Email Input Dialog */}
+      {console.log('Dialog state:', { showEmailDialog, selectedTier })}
       <Dialog open={showEmailDialog} onOpenChange={setShowEmailDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
